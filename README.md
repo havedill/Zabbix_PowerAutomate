@@ -13,6 +13,6 @@ https://hradek.de/html/AdaptiveCardColorGIF.html - Helpful for card color scheme
 
 # Known Issues:
 
-Currently Desktop/Mobile notifications show up as "Workflows sent a card"
+Currently Desktop/Mobile notifications show up as "Workflows sent a card". Similar to this issue https://github.com/OfficeDev/teams-toolkit/issues/6752, stupid power automate may not support setting this field...
 
 I have not found a solution yet, please let me know
