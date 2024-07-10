@@ -1,0 +1,220 @@
+// From: https://hradek.de/html/AdaptiveCardColorGIF.html
+var SEVERITY_COLORS = [
+    'data:image/gif;base64,R0lGODdhCAABAIAAK3a/wAAAACwAAAAACAABAAACA4RvBQA7',    // Not classified.
+    'data:image/gif;base64,R0lGODdhCAABAIAAEKn/wAAAACwAAAAACAABAAACA4RvBQA7',     // Information.
+    'data:image/gif;base64,R0lGODdhCAABAIAAP/IAAAAAACwAAAAACAABAAACA4RvBQA7',    // Warning.
+    'data:image/gif;base64,R0lGODdhCAABAIAAP9vAAAAAACwAAAAACAABAAACA4RvBQA7',  // Average.
+    'data:image/gif;base64,R0lGODdhCAABAIAAN5vAAAAAACwAAAAACAABAAACA4RvBQA7',  // High.
+    'data:image/gif;base64,R0lGODdhCAABAIAANQAAAAAAACwAAAAACAABAAACA4RvBQA7',  // Disaster.
+    'data:image/gif;base64,R0lGODdhCAABAIAAAC1BgAAAACwAAAAACAABAAACA4RvBQA7',       // Resolved.
+    'data:image/gif;base64,R0lGODdhCAABAIAAK3a/wAAAACwAAAAACAABAAACA4RvBQA7'     // Default.
+];
+
+
+
+try {
+    var params = JSON.parse(value);
+
+    params.zabbix_url = params.zabbix_url.endsWith('/') ? params.zabbix_url.slice(0, -1) : params.zabbix_url;
+
+    if ([0, 1, 2, 3].indexOf(parseInt(params.event_source)) === -1) {
+        throw 'Incorrect "event_source" parameter given: "' + params.event_source + '".\nMust be 0-3.';
+    }
+
+    // Set "use_default_message" to true for non trigger-based events.
+    if (params.event_source !== '0') {
+        params.use_default_message = 'true';
+    }
+
+    // Check {EVENT.VALUE} for trigger-based and internal events.
+    if (params.event_value !== '0' && params.event_value !== '1' &&
+        (params.event_source === '0' || params.event_source === '3')) {
+        throw 'Incorrect "event_value" parameter given: "' + params.event_value + '".\nMust be 0 or 1.';
+    }
+
+    // Check {EVENT.UPDATE.STATUS} only for trigger-based events.
+    if (params.event_update_status !== '0' && params.event_update_status !== '1' && params.event_source === '0') {
+        throw 'Incorrect "event_update_status" parameter given: "' + params.event_update_status + '".\nMust be 0 or 1.';
+    }
+
+    if (params.event_value === '0') {
+        params.event_nseverity = '6';
+    }
+
+    if (!SEVERITY_COLORS[params.event_nseverity]) {
+        params.event_nseverity = '7';
+    }
+
+    var request = new CurlHttpRequest();
+    var body = {
+        type: "message",
+        attachments: [{
+            contentType: "application/vnd.microsoft.card.adaptive",
+            content: {
+                $schema: "http://adaptivecards.io/schemas/adaptive-card.json",
+                type: "AdaptiveCard",
+                version: "1.0",
+                "msteams": {
+                    "width": "Full"
+                },
+                "backgroundImage": {
+                   "url": SEVERITY_COLORS[params.event_nseverity],
+                   "fillMode": "RepeatVertically"
+                },
+                body: [
+                    {
+                        type: "TextBlock",
+                        text: "Zabbix",
+                        weight: "bolder",
+                        size: "medium"
+                    },
+                    {
+                        type: "TextBlock",
+                        text: params.alert_subject,
+                        wrap: true,
+                        size: "large",
+                        weight: "bolder"
+                    },
+                    {
+                        type: "TextBlock",
+                        text: 'On ' + params.host_name + ' [' + params.host_ip + ']',
+                        wrap: true
+                    },
+                    {
+                        type: "TextBlock",
+                        text: params.use_default_message.toLowerCase() === 'true'
+                            ? params.alert_message
+                            : params.trigger_description,
+                        wrap: true
+                    }
+                ]
+            }
+        }]
+    };
+
+    if (params.use_default_message.toLowerCase() !== 'true') {
+        // Problem message.
+        if (params.event_value === '1' && params.event_update_status === '0') {
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Event time:** ' + params.event_time + ' ' + params.event_date,
+                wrap: true
+            });
+        }
+        // Update message.
+        else if (params.event_update_status === '1') {
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: params.event_update_user + ' ' + params.event_update_action + '.',
+                wrap: true
+            });
+
+            if (params.event_update_message) {
+                body.attachments[0].content.body.push({
+                    type: "TextBlock",
+                    text: '**Message:**\n' + params.event_update_message,
+                    wrap: true
+                });
+            }
+
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Event update time:** ' + params.event_update_time + ' ' + params.event_update_date,
+                wrap: true
+            });
+        }
+        // Resolved message.
+        else {
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Recovery time:** ' + params.event_recovery_time + ' ' + params.event_recovery_date,
+                wrap: true
+            });
+        }
+
+        if (params.event_severity && params.event_severity !== '{EVENT.SEVERITY}') {
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Severity:** ' + params.event_severity,
+                wrap: true
+            });
+        }
+
+        if (params.event_opdata && params.event_opdata !== '{EVENT.OPDATA}') {
+            var opDataLines = params.event_opdata.split(/(?:\r\n|\r|\n)/);
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Operational data:**',
+                wrap: true
+            });
+            opDataLines.forEach(function (line) {
+                body.attachments[0].content.body.push({
+                    type: "TextBlock",
+                    text: line,
+                    wrap: true
+                });
+            });
+        }
+
+        if (params.event_tags && params.event_tags !== '{EVENT.TAGS}') {
+            body.attachments[0].content.body.push({
+                type: "TextBlock",
+                text: '**Event tags:** ' + params.event_tags,
+                wrap: true
+            });
+        }
+
+        Object.keys(params).forEach(function (key) {
+            if (key.startsWith('fact_') && params[key] !== '') {
+                body.attachments[0].content.body.push({
+                    type: "TextBlock",
+                    text: '**' + key.substring(5) + ':** ' + params[key],
+                    wrap: true
+                });
+            } else if (key.startsWith('openUri_') && params[key] !== '' && !params[key].startsWith('{')) {
+                body.attachments[0].content.body.push({
+                    type: "ActionSet",
+                    actions: [
+                        {
+                            type: "Action.OpenUrl",
+                            title: key.substring(8),
+                            url: params[key]
+                        }
+                    ]
+                });
+            }
+        });
+
+        body.attachments[0].content.body.push({
+            type: "ActionSet",
+            actions: [
+                {
+                    type: "Action.OpenUrl",
+                    title: (params.event_source === '0' && params.event_recovery_value !== '0')
+                        ? "Acknowledge"
+                        : "View Event History",
+                    url: (params.event_source === '0' && params.event_recovery_value !== '0')
+                        ? params.zabbix_url + "/zabbix.php?action=popup&popup_action=acknowledge.edit&eventids%5B%5D=" + params.event_id
+                        : params.zabbix_url + "/tr_events.php?triggerid=" + params.trigger_id + "&eventid=" + params.event_id
+                }
+            ]
+        });
+    }
+
+    request.AddHeader('Content-Type: application/json');
+
+    if (typeof params.HTTPProxy === 'string' && params.HTTPProxy !== '') {
+        request.SetProxy(params.HTTPProxy);
+    }
+
+    Zabbix.Log(4, '[ MS Teams Webhook ] JSON: ' + JSON.stringify(body));
+
+    var response = request.Post(params.teams_endpoint, JSON.stringify(body));
+
+    Zabbix.Log(4, '[ MS Teams Webhook ] Response: ' + response);
+
+    return 'OK';
+} catch (error) {
+    Zabbix.Log(3, '[ MS Teams Webhook ] ERROR: ' + error);
+    throw 'Sending failed: ' + error;
+}
