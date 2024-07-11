@@ -1,0 +1,71 @@
+# Example from a recent run, derived from the flows parameters https://i.imgur.com/Js9gNqC.png
+# https://adaptivecards.io/designer/
+
+ {
+    "Summary": "TESTINGTESINT",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "msteams": {
+      "width": "Full"
+    },
+    "backgroundImage": {
+      "url": "data:image/gif;base64,R0lGODdhCAABAIEAAOZNAAAAAAAAAAAAACwAAAAACAABAAAIBwABCBwoMCAAOw==",
+      "fillMode": "RepeatVertically"
+    },
+    "body": [
+      {
+        "type": "TextBlock",
+        "text": "Zabbix",
+        "weight": "bolder",
+        "size": "medium"
+      },
+      {
+        "type": "TextBlock",
+        "text": "Alert Subject",
+        "wrap": true,
+        "size": "large",
+        "weight": "bolder"
+      },
+      {
+        "type": "TextBlock",
+        "text": "On Fakehost [fakehostDNS]",
+        "wrap": true
+      },
+      {
+        "type": "TextBlock",
+        "text": "I'm an alert that fired! This is my description",
+        "wrap": true
+      },
+      {
+        "type": "TextBlock",
+        "text": "**Event time:** {EVENT.TIME} Today",
+        "wrap": true
+      },
+      {
+        "type": "TextBlock",
+        "text": "**Severity:** 4",
+        "wrap": true
+      },
+      {
+        "type": "TextBlock",
+        "text": "**Operational data:**",
+        "wrap": true
+      },
+      {
+        "type": "TextBlock",
+        "text": "Down (0)",
+        "wrap": true
+      },
+      {
+        "type": "ActionSet",
+        "actions": [
+          {
+            "type": "Action.OpenUrl",
+            "title": "Acknowledge",
+            "url": "{$ZABBIX.URL}/zabbix.php?action=popup&popup_action=acknowledge.edit&eventids%5B%5D=11111"
+          }
+        ]
+      }
+    ]
+  }
