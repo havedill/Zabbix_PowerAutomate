@@ -6,7 +6,7 @@ I have a template for version 5.0, and 7.0 created and tested.
 
 https://adaptivecards.io/designer/ - Helpful for card design
 
-https://hradek.de/html/AdaptiveCardColorGIF.html - Helpful for card color scheme (I'm colorblind so i apologize if they look horrible out of the box)
+https://hradek.de/html/AdaptiveCardColorGIF.html - This was not doing colors right for me. I used chatgpt to write up a python script to generate 8x1 gifs instead.
 
 ![preview](https://i.imgur.com/oGcv5zB.png)
 
