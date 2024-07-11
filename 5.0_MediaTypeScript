@@ -1,13 +1,12 @@
-// From: https://hradek.de/html/AdaptiveCardColorGIF.html
 var SEVERITY_COLORS = [
-    'data:image/gif;base64,R0lGODdhCAABAIAAK3a/wAAAACwAAAAACAABAAACA4RvBQA7',    // Not classified.
-    'data:image/gif;base64,R0lGODdhCAABAIAAEKn/wAAAACwAAAAACAABAAACA4RvBQA7',     // Information.
-    'data:image/gif;base64,R0lGODdhCAABAIAAP/IAAAAAACwAAAAACAABAAACA4RvBQA7',    // Warning.
-    'data:image/gif;base64,R0lGODdhCAABAIAAP9vAAAAAACwAAAAACAABAAACA4RvBQA7',  // Average.
-    'data:image/gif;base64,R0lGODdhCAABAIAAN5vAAAAAACwAAAAACAABAAACA4RvBQA7',  // High.
-    'data:image/gif;base64,R0lGODdhCAABAIAANQAAAAAAACwAAAAACAABAAACA4RvBQA7',  // Disaster.
-    'data:image/gif;base64,R0lGODdhCAABAIAAAC1BgAAAACwAAAAACAABAAACA4RvBQA7',       // Resolved.
-    'data:image/gif;base64,R0lGODdhCAABAIAAK3a/wAAAACwAAAAACAABAAACA4RvBQA7'     // Default.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAMPDwwAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',    // Not classified.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAK3Y5gAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',     // Information.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAP/kWgAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',    // Warning.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAOaKAAAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',  // Average.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAOZNAAAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',  // High.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAOYAAAAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',  // Disaster.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAACeGgAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw==',       // Resolved.
+    'data:image/gif;base64,R0lGODdhAQABAIEAAMPDwwAAAAAAAAAAACwAAAAAAQABAAAIBAABBAQAOw=='     // Default.
 ];
 
 
