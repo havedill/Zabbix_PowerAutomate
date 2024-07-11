@@ -8,7 +8,7 @@ https://adaptivecards.io/designer/ - Helpful for card design
 
 https://hradek.de/html/AdaptiveCardColorGIF.html - This was not doing colors right for me. I used chatgpt to write up a python script to generate 8x1 gifs instead.
 
-![preview](https://i.imgur.com/oGcv5zB.png)
+![preview](https://i.imgur.com/SUzKuMJ.png)
 
 
 # Known Issues:
