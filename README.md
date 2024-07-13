@@ -13,11 +13,9 @@ https://hradek.de/html/AdaptiveCardColorGIF.html - This was not doing colors rig
 
 # Known Issues:
 
-Currently Desktop/Mobile notifications show up as "Workflows sent a card". Similar to this issue https://answers.microsoft.com/en-us/msteams/forum/all/change-adaptive-card-summary-from-sent-a-card-in/b516d8fe-f4a1-4c5a-9b57-b6c385647040 / https://github.com/OfficeDev/teams-toolkit/issues/6752, stupid power automate may not support setting this field...
+Currently Desktop/Mobile notifications show up as "Workflows sent a card": [Link](https://powerusers.microsoft.com/t5/Using-Connectors/MS-Teams-Adaptive-Cards-No-ability-to-customize-quot-From-quot/td-p/2843061)
 
-Supposedly you can do this, but i have not been successful:
-https://stackoverflow.com/questions/61229084/how-to-change-notification-text-when-bot-sends-an-adaptive-card-in-microsoft-tea
+Supposedly you can do this, but i have not been successful, as the PowerAutomate flow only accepts the CARD json, you cant prepend anything outisde that
+[Link](https://stackoverflow.com/questions/61229084/how-to-change-notification-text-when-bot-sends-an-adaptive-card-in-microsoft-tea)
 
-I have not found a solution yet, please let me know
-
-Also if there is a way to change "who" the message is from, instead of having the workflow owners name appear.
+I have not found a solution yet, please let me know. I'd rather not write a full bot from scratch.
