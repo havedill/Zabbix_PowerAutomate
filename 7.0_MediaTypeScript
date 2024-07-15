@@ -50,7 +50,7 @@ try {
         params.event_nseverity = '6';
     }
 
-    if (!SEVERITY_COLORS[params.event_nseverity]) {
+    if (!SEVERITY_COLORS_HOR[params.event_nseverity]) {
         params.event_nseverity = '7';
     }
 
