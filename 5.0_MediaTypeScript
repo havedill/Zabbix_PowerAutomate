@@ -1,4 +1,4 @@
-var SEVERITY_COLORS = [
+var SEVERITY_COLORS_VERT = [
     'data:image/gif;base64,R0lGODdhCAABAIEAAMPDwwAAAAAAAAAAACwAAAAACAABAAAIBwABCBwoMCAAOw==',    // Not classified.
     'data:image/gif;base64,R0lGODdhCAABAIEAALaz/wAAAAAAAAAAACwAAAAACAABAAAIBwABCBwoMCAAOw==',     // Information.
     'data:image/gif;base64,R0lGODdhCAABAIEAAO7JUwAAAAAAAAAAACwAAAAACAABAAAIBwABCBwoMCAAOw==',    // Warning.
@@ -9,6 +9,16 @@ var SEVERITY_COLORS = [
     'data:image/gif;base64,R0lGODdhCAABAIEAAMPDwwAAAAAAAAAAACwAAAAACAABAAAIBwABCBwoMCAAOw=='     // Default.
 ];
 
+var SEVERITY_COLORS_HOR = [
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAMPDwwAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',    // Not classified.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAALaz/wAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',     // Information.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAO7JUwAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',    // Warning.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAOaDAAAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',  // Average.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAOZNAAAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',  // High.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAOYAAAAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',  // Disaster.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAACeGgAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw==',       // Resolved.
+    'data:image/gif;base64,R0lGODdhAQAIAIEAAMPDwwAAAAAAAAAAACwAAAAAAQAIAAAIBwABCBwoMCAAOw=='     // Default.
+];
 
 
 try {
@@ -57,7 +67,7 @@ try {
                     "width": "Full"
                 },
                 "backgroundImage": {
-                   "url": SEVERITY_COLORS[params.event_nseverity],
+                   "url": params.bannertype === "vertical" ? SEVERITY_COLORS_VERT[params.event_nseverity] : SEVERITY_COLORS_HOR[params.event_nseverity],
                    "fillMode": "RepeatVertically"
                 },
                 body: [
