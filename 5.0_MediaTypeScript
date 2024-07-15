@@ -68,7 +68,7 @@ try {
                 },
                 "backgroundImage": {
                    "url": params.bannertype === "vertical" ? SEVERITY_COLORS_VERT[params.event_nseverity] : SEVERITY_COLORS_HOR[params.event_nseverity],
-                   "fillMode": "RepeatVertically"
+                   "fillMode": params.bannertype === "vertical" ? "RepeatVertically" : "RepeatHorizontally"
                 },
                 body: [
                     {
