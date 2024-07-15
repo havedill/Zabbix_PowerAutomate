@@ -10,6 +10,12 @@ https://hradek.de/html/AdaptiveCardColorGIF.html - This was not doing colors rig
 
 ![preview](https://i.imgur.com/SUzKuMJ.png)
 
+# Choosing Banner Type / Color Bar Orientation
+
+In the Zabbix media type, you can now add a new parameter "bannertype". This defaults to horizonal, but you can set it to be vertical if desired. 
+
+![image](https://github.com/user-attachments/assets/c71e7585-c4eb-4b8b-b903-ac0d5627ea0b)
+
 
 # Known Issues:
 
