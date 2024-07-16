@@ -19,9 +19,10 @@ In the Zabbix media type, you can now add a new parameter "bannertype". This def
 
 # Known Issues:
 
-Currently Desktop/Mobile notifications show up as "Workflows sent a card": [Link](https://powerusers.microsoft.com/t5/Using-Connectors/MS-Teams-Adaptive-Cards-No-ability-to-customize-quot-From-quot/td-p/2843061)
-
-Supposedly you can do this, but i have not been successful, as the PowerAutomate flow only accepts the CARD json, you cant prepend anything outisde that
+* Currently Desktop/Mobile notifications show up as "Workflows sent a card": [Link](https://powerusers.microsoft.com/t5/Using-Connectors/MS-Teams-Adaptive-Cards-No-ability-to-customize-quot-From-quot/td-p/2843061)
+  * Supposedly you can do this, but i have not been successful, as the PowerAutomate flow only accepts the CARD json, you cant prepend anything outisde that
 [Link](https://stackoverflow.com/questions/61229084/how-to-change-notification-text-when-bot-sends-an-adaptive-card-in-microsoft-tea)
+
+* On Mobile, the card color/banner does not render. This seems to be a Microsoft bug
 
 I have not found a solution yet, please let me know. I'd rather not write a full bot from scratch.
