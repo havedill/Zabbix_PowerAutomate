@@ -54,7 +54,7 @@ try {
         params.event_nseverity = '7';
     }
 
-    var request = new CurlHttpRequest();
+    var request = new HttpRequest();
     var body = {
         type: "message",
         attachments: [{
